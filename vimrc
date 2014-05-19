@@ -10,17 +10,24 @@ set laststatus=2
 set noshowmode
 set encoding=utf-8
 set termencoding=utf-8
-filetype plugin indent on
 set omnifunc=syntaxcomplete#Complete
 set autochdir
+
+
+filetype plugin indent on
 cd /media/Datenablage/Dropbox/Dokumente/
     highlight ColorColumn ctermbg=magenta
         call matchadd('ColorColumn', '\%81v', 100)
+
 " }}}
-"Bundles{{
+
+
+"{{ Bundles
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
+
+
 Bundle "vim-scripts/FuzzyFinder"
 Bundle "vim-scripts/L9"
 "Bundle "szw/vim-ctrlspace"
@@ -60,22 +67,31 @@ Bundle "plasticboy/vim-markdown"
 Bundle "tpope/vim-fugitive"
 Bundle "Shougo/neocomplete.vim"
 
+
 "All of your Plugins must be added before the following line
 call vundle#end()            " required
 
+
 "}}}
+
+
 " {{Mappings
-"map the leader button
-:let mapleader = ","
+" map the leader button
+let mapleader = ","
 let g:calendar_google_calendar = 1
 let g:calendar_google_task = 1
+
+
 " ignoriert Buchstaben j und k bei OMNIpopup
-"inoremap <expr> j ((pumvisible())?("\<C-n>"):("j"))
-"inoremap <expr> k ((pumvisible())?("\<C-p>"):("k"))
-"ctrlp working path disable
+" inoremap <expr> j ((pumvisible())?("\<C-n>"):("j"))
+" inoremap <expr> k ((pumvisible())?("\<C-p>"):("k"))
+"
+" ctrlp working path disable
 let g:ctrlp_working_path_mode = 0
-"pandoc syntax highlighting on
+
+" pandoc syntax highlighting on
 let g:pandoc_no_empty_implicits = 1
+
 " löst Verknüpfung der Pfeiltasten
 inoremap  <Up>     <NOP>
 inoremap  <Down>   <NOP>
@@ -85,54 +101,72 @@ noremap   <Up>     <NOP>
 noremap   <Down>   <NOP>
 noremap   <Left>   <NOP>
 noremap   <Right>  <NOP>
-"verknüpft ESC mit speichern :w
-"inoremap <Esc> <Esc>:w<CR>
+
+" verknüpft ESC mit speichern :w
+" inoremap <Esc> <Esc>:w<CR>
+"
 nnoremap <silent> <C-l> :nohl<CR><C-l>
-"F9 toggle folding
+
+" F9 toggle folding
 inoremap <f3> <C-O>za
 nnoremap <f3> za
 onoremap <f3> <C-C>za
 vnoremap <f3> zf
-"FuzzyFinder mappings
+
+" FuzzyFinder mappings
 nnoremap <leader>fn :FufFile /media/Datenablage/Dropbox/Dokumente/Notes/<cr>
 nnoremap <leader>fd :FufFile /media/Datenablage/Dropbox/Dokumente/<cr>
+
 " open vimrc
 nnoremap <leader>v :e ~/.vimrc<CR>
 nnoremap <leader>V :tabnew ~/.vimrc<CR>
-"ACK Mappings
+
+" ACK Mappings
 command! -nargs=1 ANo Ack -i "<args>" /media/Datenablage/Dropbox/Dokumente/Notes/
 command! -nargs=1 ANd Ack -i "<args>" /media/Datenablage/Dropbox/Dokumente/
 nnoremap <leader>an :ANo 
 nnoremap <leader>ad :ANd 
-"Open Nerdtree with leader + t
+
+" Open Nerdtree with leader + t
 nnoremap <leader>t :NERDTree<cr> 
-"Take Quick Note with leader + n
+
+" Take Quick Note with leader + n
 nnoremap <leader>n :Note<cr>
-"MostRecentlyUsed with leader + m
+
+" MostRecentlyUsed with leader + m
 nnoremap <leader>m :Mru<cr>
-"Calendar with leader + c
+
+" Calendar with leader + c
 nnoremap <leader>c :Calendar<cr>
 au FileType pandoc map  <F5>  :w<CR>:PandocHtml<CR><ESC>
 au FileType pandoc imap <F5>  <esc><F5>a
 au FileType pandoc map  <F6>  :w<CR>:PandocPdf<CR><ESC>
 au FileType pandoc imap <F6>  <esc><F6>a
 " }}}
+
+
+
 " {{ Some specific configurations
-"Lines added by the Vim-R-plugin command :RpluginConfig (2014-Mai-13 21:39):
+" Lines added by the Vim-R-plugin command :RpluginConfig (2014-Mai-13 21:39):
 syntax enable
-"Change the <LocalLeader> key:
+
+" Change the <LocalLeader> key:
 let maplocalleader = ","
-"Notes-Verzeichnis
+
+" Notes-Verzeichnis
 :let g:notes_directories = ['/media/Datenablage/Dropbox/Dokumente/Notes/']
-"Opens NERDTREE with Bookmarks
+
+" Opens NERDTREE with Bookmarks
 let NERDTreeShowBookmarks=1
-"Use Ctrl+Space to do omnicompletion:
+
+" Use Ctrl+Space to do omnicompletion:
 if has("gui_running")
     inoremap <C-Space> <C-x><C-o>
 else
     inoremap <Nul> <C-x><C-o>
 endif
-"Press the space bar to send lines (in Normal mode) and selections to R:
+
+" Press the space bar to send lines (in Normal mode) and selections to R:
 vmap <Space> <Plug>RDSendSelection
 nmap <Space> <Plug>RDSendLine
 
@@ -149,6 +183,7 @@ nmap         ++  vip++
 nnoremap <silent> n   n:call HLNext(0.4)<cr>
 nnoremap <silent> N   N:call HLNext(0.4)<cr>
 colorscheme candyman
+
 " EITHER blink the line containing the match...
 function! HLNext (blinktime)
     set invcursorline
@@ -159,16 +194,8 @@ function! HLNext (blinktime)
 endfunction
 set list
 set listchars=tab:▸\ ,eol:¬
-
-" Trigger configuration. Do not use <tab> if you use
-" https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-
-" If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
 " }}}
+"
 "{{{Neocomplete Setup
 "Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
 " Disable AutoComplPop.

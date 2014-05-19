@@ -1,0 +1,117 @@
+######################
+# - Conky settings - #
+######################
+update_interval 2
+total_run_times 0
+net_avg_samples 1
+cpu_avg_samples 2
+
+imlib_cache_size 0
+double_buffer yes
+no_buffers yes
+
+format_human_readable
+
+#####################
+# - Text settings - #
+#####################
+use_xft yes
+xftfont Bitstream Vera Sans Mono:size=8
+override_utf8_locale yes
+text_buffer_size 2048
+
+#############################
+# - Window specifications - #
+#############################
+own_window_class Conky
+own_window yes
+own_window_type desktop
+own_window_argb_visual yes
+own_window_argb_value 150
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+own_window_transparent yes
+
+
+alignment top_middle # alternativ auch: tm
+gap_y 30 #abstand auf der y achse
+gap_x -160 #abstand x achse
+border_inner_margin 0
+
+minimum_size 300 500
+maximum_width 300
+maximum_height 560
+
+default_bar_size 144 4 
+
+#########################
+# - Graphics settings - #
+#########################
+draw_shades yes
+default_shade_color 000000
+default_color FFFFFF
+
+TEXT
+#############
+# - CLOCK - #
+#############
+${voffset 6}${font Bitstream Vera Sans Mono:style=Bold:size=8}DATE $stippled_hr${font}
+${font Bitstream Vera Sans Mono:size=20}${alignc}${time %H:%M}${font}
+${alignc}${time %d %B %Y}
+${font Bitstream Vera Sans Mono:style=Bold:size=8}SYSTEM $stippled_hr${font}
+##############
+# - SYSTEM - #
+##############
+${voffset 6}
+${goto 20}${voffset -15}Kernel:  ${alignr}${kernel}
+${goto 20}Uptime: ${alignr}${uptime}
+# |--UPDATES
+${goto 20}Updates: ${alignr}${font Bitstream Vera Sans Mono:style=Bold:size=8}${execi 10800 pacman -Qu | wc -l}${font} Packages
+# |--CPU
+${goto 20}${voffset 6}${font Bitstream Vera Sans Mono:style=Bold:size=8}CPU${font} ${cpubar cpu0 4,144}
+${voffset 0}${goto 20}Core 1: ${font Bitstream Vera Sans Mono:style=Bold:size=8}${cpu cpu1}%${font} / ${exec sensors | grep 'Core 0' | awk '{print $3}' | cut -c2-3}°C @ $color${freq_g (1)} GHz ${alignr}${cpubar cpu1 7,70 EEEEEE}
+${voffset 1}${goto 20}Core 2: ${font Bitstream Vera Sans Mono:style=Bold:size=8}${cpu cpu2}%${font} / ${exec sensors | grep 'Core 1' | awk '{print $3}' | cut -c2-3}°C @ $color${freq_g (2)} GHz ${alignr}${cpubar cpu2 7,70 EEEEEE}
+${voffset 1}${goto 20}Core 3: ${font Bitstream Vera Sans Mono:style=Bold:size=8}${cpu cpu3}%${font} / ${exec sensors | grep 'Core 2' | awk '{print $3}' | cut -c2-3}°C @ $color${freq_g (3)} GHz ${alignr}${cpubar cpu3 7,70 EEEEEE}
+${voffset 1}${goto 20}Core 4: ${font Bitstream Vera Sans Mono:style=Bold:size=8}${cpu cpu4}%${font} / ${exec sensors | grep 'Core 3' | awk '{print $3}' | cut -c2-3}°C @ $color${freq_g (4)} GHz ${alignr}${cpubar cpu4 7,70 EEEEEE}
+${voffset 1}${goto 20}CPU Fan Speed: ${font Bitstream Vera Sans Mono:size=8}${exec sensors | grep fan1 | cut -d " " -f 9,10} 
+# |--GPU
+${goto 20}${voffset 6}${font Bitstream Vera Sans Mono:style=Bold:size=8}GPU${font} ${execibar 1 aticonfig --od-getclocks | awk '/load/ {print $4}'| sed 's/%//' }
+${voffset 0}${goto 20}GPU Load: ${font Bitstream Vera Sans Mono:style=Bold:size=8}${execi 1 aticonfig --odgc |grep 'GPU'|awk '{print $4}'}${font}
+${voffset 0}${goto 20}GPU Temp: ${font Bitstream Vera Sans Mono:style=Bold:size=8}${execi 1 aticonfig --adapter=0 --od-gettemperature | tail -n1 | gawk '{ printf $5 }'}°C${font}
+${voffset 1}${goto 20}GPU Fan Speed: ${font Bitstream Vera Sans Mono:style=Bold:size=8}${execi 1 aticonfig --pplib-cmd 'get fanspeed 0' |grep 'Result'|awk '{print $4}'}
+# |--MEM
+${goto 20}${voffset 6}${font Bitstream Vera Sans Mono:style=Bold:size=8}RAM${font} ${membar 4,144}
+${voffset 0}${font}${goto 20}RAM: ${font Bitstream Vera Sans Mono:style=Bold:size=8}$memperc%${font}
+${voffset 0}${goto 20}Free: ${font Bitstream Vera Sans Mono:style=Bold:size=8}${memeasyfree}${font} ${goto 122}Used: ${font Bitstream Vera Sans Mono:style=Bold:size=8}${mem}${font}
+# |--SWAP
+${goto 20}${voffset 6}${font Bitstream Vera Sans Mono:style=Bold:size=8}SWP${font} ${swapbar 4,144}
+${voffset 0}${font}${goto 20}Swap: ${font Bitstream Vera Sans Mono:style=Bold:size=8}$swapperc%${font}
+${voffset 0}${goto 20}Free: ${font Bitstream Vera Sans Mono:style=Bold:size=8}${swapmax}${font} ${goto 122}Used: ${font Bitstream Vera Sans Mono:style=Bold:size=8}${swap}${font}
+# |--PROC
+${voffset 6}${goto 20}${font Bitstream Vera Sans Mono:style=Bold:size=8}PROCESS${font}${voffset 0}${goto 126}CPU${alignr}RAM
+${voffset -1}${goto 20}${top name 1}${font Bitstream Vera Sans Mono:size=8} ${goto 120}${top cpu 1}${alignr }${top mem 1}${font}
+${voffset -1}${goto 20}${top name 2}${font Bitstream Vera Sans Mono:size=8} ${goto 120}${top cpu 2}${alignr }${top mem 2}${font}
+${voffset -1}${goto 20}${top name 3}${font Bitstream Vera Sans Mono:size=8} ${goto 120}${top cpu 3}${alignr }${top mem 3}${font}
+${voffset -1}${goto 20}${top name 4}${font Bitstream Vera Sans Mono:size=8} ${goto 120}${top cpu 4}${alignr }${top mem 4}${font}
+${voffset -1}${goto 20}${top name 5}${font Bitstream Vera Sans Mono:size=8} ${goto 120}${top cpu 5}${alignr }${top mem 5}${font}
+${voffset -1}${goto 20}${top name 6}${font Bitstream Vera Sans Mono:size=8} ${goto 120}${top cpu 6}${alignr }${top mem 6}${font}
+###############
+# - NETWORK - #
+###############
+${voffset 4}${font Bitstream Vera Sans Mono:style=Bold:size=8}NETWORK $stippled_hr${font}
+${voffset 4}${goto 20}Download: ${font Bitstream Vera Sans Mono:style=Bold:size=8}${downspeed eth0}${font} ${alignr}${downspeedgraph eth0 20,70 EEEEEE}
+${voffset -18}${goto 20}Overall: ${font Bitstream Vera Sans Mono:style=Bold:size=8}${totaldown eth0}${font}
+${voffset 4}${goto 20}Upload: ${font Bitstream Vera Sans Mono:style=Bold:size=8}${upspeed eth0}${font} ${alignr}${upspeedgraph wlan0 20,70 EEEEEE}
+${voffset -18}${goto 20}Overall: ${font Bitstream Vera Sans Mono:style=Bold:size=8}${totalup eth0}${font}
+${voffset 4}${goto 20}Local IP: ${alignr}${font Bitstream Vera Sans Mono:style=Bold:size=8}${addr eth0}${font}
+##########
+# - HD - #
+##########
+${voffset 4}${font Bitstream Vera Sans Mono:style=Bold:size=8}HD $stippled_hr${font}
+# |--HD default
+  ${voffset 4}${goto 20}/dev/sdb ${font Bitstream Vera Sans Mono:style=Bold:size=8}${fs_used_perc /}%${font}${goto 100}${alignr}${fs_bar 6,68 /}
+  ${offset 7}Free: ${font Bitstream Vera Sans Mono:style=Bold:size=8}${fs_free /}${font} ${alignr 1}Used: ${font Bitstream Vera Sans Mono:style=Bold:size=8}${fs_used /}${font}
+  ${voffset 7}${goto 20}${voffset -4}Temperature: ${font Bitstream Vera Sans Mono:style=Bold:size=8}${execi 120 hddtemp /dev/sdb -n --unit=C}°C${font}${alignr}
+  ${voffset 4}${goto 20}/dev/sdc ${font Bitstream Vera Sans Mono:style=Bold:size=8}${fs_used_perc /media/Datenablage}%${font}${goto 100}${alignr}${fs_bar 6,68 /media/Datenablage}
+  ${offset 7}Free: ${font Bitstream Vera Sans Mono:style=Bold:size=8}${fs_free /media/Datenablage}${font} ${alignr 1}Used: ${font Bitstream Vera Sans Mono:style=Bold:size=8}${fs_used /media/Datenablage}${font}
+  ${voffset 7}${goto 20}${voffset -4}Temperature: ${font Bitstream Vera Sans Mono:style=Bold:size=8}${execi 120 hddtemp /dev/sdc -n --unit=C}°C${font}${alignr}
+

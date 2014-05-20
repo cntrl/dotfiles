@@ -3,11 +3,16 @@ set guifont=Bitstream_Vera_Sans_Mono:h11:cANSI
 set nocompatible
 set mouse=a
 set number
+set incsearch
 set hlsearch
 set nosol
 set foldmethod=marker
 set laststatus=2
 set noshowmode
+"filetype indent on
+set tabstop=4
+set shiftwidth=4
+set expandtab
 set encoding=utf-8
 set termencoding=utf-8
 set omnifunc=syntaxcomplete#Complete
@@ -44,9 +49,9 @@ Bundle "jcfaria/Vim-R-plugin"
 Bundle "jcf/vim-latex"
 Bundle "Lokaltog/vim-easymotion"
 Bundle "nixon/vim-vmath"
-"Bundle "mattn/emmet-vim"
+Bundle "mattn/emmet-vim"
 Bundle "vim-scripts/loremipsum"
-"Bundle "scrooloose/syntastic"
+Bundle "scrooloose/syntastic"
 "Bundle "vim-scripts/tComment"
 "Bundle "vim-scripts/UltiSnips"
 "Bundle "msanders/snipmate.vim"

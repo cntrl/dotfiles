@@ -21,8 +21,8 @@ set autochdir
 
 filetype plugin indent on
 cd /media/Datenablage/Dropbox/Dokumente/
-    highlight ColorColumn ctermbg=magenta
-        call matchadd('ColorColumn', '\%81v', 100)
+highlight ColorColumn ctermbg=magenta
+call matchadd('ColorColumn', '\%81v', 100)
 
 " }}}
 
@@ -149,7 +149,11 @@ au FileType pandoc map  <F6>  :w<CR>:PandocPdf<CR><ESC>
 au FileType pandoc imap <F6>  <esc><F6>a
 " }}}
 
-
+" write / close / write and close with capital letters and non capital letters
+:command WQ wq
+:command Wq wq
+:command W w
+:command Q q
 
 " {{ Some specific configurations
 " Lines added by the Vim-R-plugin command :RpluginConfig (2014-Mai-13 21:39):
@@ -159,7 +163,7 @@ syntax enable
 let maplocalleader = ","
 
 " Notes-Verzeichnis
-:let g:notes_directories = ['/media/Datenablage/Dropbox/Dokumente/Notes/']
+let g:notes_directories = ['/media/Datenablage/Dropbox/Dokumente/Notes/']
 
 " Opens NERDTREE with Bookmarks
 let NERDTreeShowBookmarks=1
@@ -170,6 +174,7 @@ if has("gui_running")
 else
     inoremap <Nul> <C-x><C-o>
 endif
+imap jj <Esc>
 
 " Press the space bar to send lines (in Normal mode) and selections to R:
 vmap <Space> <Plug>RDSendSelection
@@ -215,10 +220,10 @@ let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 
 " Define dictionary.
 let g:neocomplete#sources#dictionary#dictionaries = {
-    \ 'default' : '',
-    \ 'vimshell' : $HOME.'/.vimshell_hist',
-    \ 'scheme' : $HOME.'/.gosh_completions'
-        \ }
+            \ 'default' : '',
+            \ 'vimshell' : $HOME.'/.vimshell_hist',
+            \ 'scheme' : $HOME.'/.gosh_completions'
+            \ }
 
 " Define keyword.
 if !exists('g:neocomplete#keyword_patterns')
@@ -234,9 +239,9 @@ inoremap <expr><C-l>     neocomplete#complete_common_string()
 " <CR>: close popup and save indent.
 inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
 function! s:my_cr_function()
-  return neocomplete#close_popup() . "\<CR>"
-  " For no inserting <CR> key.
-  "return pumvisible() ? neocomplete#close_popup() : "\<CR>"
+    return neocomplete#close_popup() . "\<CR>"
+    " For no inserting <CR> key.
+    "return pumvisible() ? neocomplete#close_popup() : "\<CR>"
 endfunction
 " <TAB>: completion.
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
@@ -276,7 +281,7 @@ autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
 " Enable heavy omni completion.
 if !exists('g:neocomplete#sources#omni#input_patterns')
-  let g:neocomplete#sources#omni#input_patterns = {}
+    let g:neocomplete#sources#omni#input_patterns = {}
 endif
 "let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
 "let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'

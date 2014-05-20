@@ -44,13 +44,13 @@ Bundle "bling/vim-airline"
 Bundle "yegappan/mru"
 Bundle "vim-scripts/Tabmerge"
 "Bundle "vim-scripts/AutoComplPop"
-Bundle "jcfaria/Vim-R-plugin"
+"Bundle "jcfaria/Vim-R-plugin"
 "Bundle "smancill/conky-syntax.vim"
-Bundle "jcf/vim-latex"
+"Bundle "jcf/vim-latex"
 Bundle "Lokaltog/vim-easymotion"
-Bundle "nixon/vim-vmath"
+"Bundle "nixon/vim-vmath"
 Bundle "mattn/emmet-vim"
-Bundle "vim-scripts/loremipsum"
+"Bundle "vim-scripts/loremipsum"
 Bundle "scrooloose/syntastic"
 "Bundle "vim-scripts/tComment"
 "Bundle "vim-scripts/UltiSnips"
@@ -60,15 +60,15 @@ Bundle "bling/vim-bufferline"
 Bundle "mileszs/ack.vim"
 Bundle "xolox/vim-notes"
 Bundle "xolox/vim-misc"
-Bundle "vim-pandoc/vim-pandoc"
-Bundle "vim-pandoc/vim-pantondoc"
-Bundle "vim-pandoc/vim-pandoc-syntax"
+"Bundle "vim-pandoc/vim-pandoc"
+"Bundle "vim-pandoc/vim-pantondoc"
+"Bundle "vim-pandoc/vim-pandoc-syntax"
 "Bundle "tpope/vim-commentary"
 "Bundle "godlygeek/tabular"
 Bundle "itchyny/calendar.vim"
 "Bundle "tpope/vim-surround"
 Bundle "danchoi/vmail"
-Bundle "plasticboy/vim-markdown"
+"Bundle "plasticboy/vim-markdown"
 Bundle "tpope/vim-fugitive"
 Bundle "Shougo/neocomplete.vim"
 
@@ -150,10 +150,10 @@ au FileType pandoc imap <F6>  <esc><F6>a
 " }}}
 
 " write / close / write and close with capital letters and non capital letters
-:command WQ wq
-:command Wq wq
-:command W w
-:command Q q
+command WQ wq
+command Wq wq
+command W w
+command Q q
 
 " {{ Some specific configurations
 " Lines added by the Vim-R-plugin command :RpluginConfig (2014-Mai-13 21:39):
@@ -240,8 +240,8 @@ inoremap <expr><C-l>     neocomplete#complete_common_string()
 inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
 function! s:my_cr_function()
     return neocomplete#close_popup() . "\<CR>"
-    " For no inserting <CR> key.
-    "return pumvisible() ? neocomplete#close_popup() : "\<CR>"
+" For no inserting <CR> key.
+" return pumvisible() ? neocomplete#close_popup() : "\<CR>"
 endfunction
 " <TAB>: completion.
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
@@ -251,26 +251,26 @@ inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><C-y>  neocomplete#close_popup()
 inoremap <expr><C-e>  neocomplete#cancel_popup()
 " Close popup by <Space>.
-"inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
+" inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
 
 " For cursor moving in insert mode(Not recommended)
-"inoremap <expr><Left>  neocomplete#close_popup() . "\<Left>"
-"inoremap <expr><Right> neocomplete#close_popup() . "\<Right>"
-"inoremap <expr><Up>    neocomplete#close_popup() . "\<Up>"
-"inoremap <expr><Down>  neocomplete#close_popup() . "\<Down>"
+" inoremap <expr><Left>  neocomplete#close_popup() . "\<Left>"
+" inoremap <expr><Right> neocomplete#close_popup() . "\<Right>"
+" inoremap <expr><Up>    neocomplete#close_popup() . "\<Up>"
+" inoremap <expr><Down>  neocomplete#close_popup() . "\<Down>"
 " Or set this.
-"let g:neocomplete#enable_cursor_hold_i = 1
+" let g:neocomplete#enable_cursor_hold_i = 1
 " Or set this.
-"let g:neocomplete#enable_insert_char_pre = 1
+" let g:neocomplete#enable_insert_char_pre = 1
 
 " AutoComplPop like behavior.
-"let g:neocomplete#enable_auto_select = 1
+" let g:neocomplete#enable_auto_select = 1
 
 " Shell like behavior(not recommended).
-"set completeopt+=longest
-"let g:neocomplete#enable_auto_select = 1
-"let g:neocomplete#disable_auto_complete = 1
-"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
+" set completeopt+=longest
+" let g:neocomplete#enable_auto_select = 1
+" let g:neocomplete#disable_auto_complete = 1
+" inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
 
 " Enable omni completion.
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
@@ -283,12 +283,11 @@ autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 if !exists('g:neocomplete#sources#omni#input_patterns')
     let g:neocomplete#sources#omni#input_patterns = {}
 endif
-"let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-"let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-"let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+" let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+" let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+" let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 
 " For perlomni.vim setting.
 " https://github.com/c9s/perlomni.vim
 let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 " }}}
-

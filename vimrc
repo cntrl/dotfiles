@@ -1,4 +1,4 @@
-"{{ Setup
+" Setup
 set guifont=Bitstream_Vera_Sans_Mono:h11:cANSI
 set nocompatible
 set mouse=a
@@ -24,10 +24,8 @@ cd /media/Datenablage/Dropbox/Dokumente/
 highlight ColorColumn ctermbg=magenta
 call matchadd('ColorColumn', '\%81v', 100)
 
-" }}}
 
-
-"{{ Bundles
+" Bundles
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
@@ -77,10 +75,8 @@ Bundle "Shougo/neocomplete.vim"
 call vundle#end()            " required
 
 
-"}}}
 
-
-" {{Mappings
+" Mappings
 " map the leader button
 let mapleader = ","
 let g:calendar_google_calendar = 1
@@ -147,7 +143,6 @@ au FileType pandoc map  <F5>  :w<CR>:PandocHtml<CR><ESC>
 au FileType pandoc imap <F5>  <esc><F5>a
 au FileType pandoc map  <F6>  :w<CR>:PandocPdf<CR><ESC>
 au FileType pandoc imap <F6>  <esc><F6>a
-" }}}
 
 " write / close / write and close with capital letters and non capital letters
 command WQ wq
@@ -155,7 +150,7 @@ command Wq wq
 command W w
 command Q q
 
-" {{ Some specific configurations
+" Some specific configurations
 " Lines added by the Vim-R-plugin command :RpluginConfig (2014-Mai-13 21:39):
 syntax enable
 
@@ -204,7 +199,6 @@ function! HLNext (blinktime)
 endfunction
 set list
 set listchars=tab:▸\ ,eol:¬
-" }}}
 "
 "{{{Neocomplete Setup
 "Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!

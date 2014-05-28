@@ -21,8 +21,10 @@ set autochdir
 
 filetype plugin indent on
 cd /media/Datenablage/Dropbox/Dokumente/
-highlight ColorColumn ctermbg=magenta
-call matchadd('ColorColumn', '\%81v', 100)
+
+" highlights 81st character in each row
+" highlight ColorColumn ctermbg=magenta
+" call matchadd('ColorColumn', '\%81v', 100)
 
 
 " Bundles
@@ -44,13 +46,13 @@ Bundle "vim-scripts/Tabmerge"
 "Bundle "vim-scripts/AutoComplPop"
 "Bundle "jcfaria/Vim-R-plugin"
 "Bundle "smancill/conky-syntax.vim"
-"Bundle "jcf/vim-latex"
+Bundle "jcf/vim-latex"
 Bundle "Lokaltog/vim-easymotion"
 "Bundle "nixon/vim-vmath"
 Bundle "mattn/emmet-vim"
 "Bundle "vim-scripts/loremipsum"
 Bundle "scrooloose/syntastic"
-"Bundle "vim-scripts/tComment"
+Bundle "vim-scripts/tComment"
 "Bundle "vim-scripts/UltiSnips"
 "Bundle "msanders/snipmate.vim"
 Bundle "tpope/vim-sensible"
@@ -62,7 +64,7 @@ Bundle "xolox/vim-misc"
 "Bundle "vim-pandoc/vim-pantondoc"
 "Bundle "vim-pandoc/vim-pandoc-syntax"
 "Bundle "tpope/vim-commentary"
-"Bundle "godlygeek/tabular"
+Bundle "godlygeek/tabular"
 Bundle "itchyny/calendar.vim"
 "Bundle "tpope/vim-surround"
 Bundle "danchoi/vmail"
@@ -75,6 +77,7 @@ Bundle "Shougo/neocomplete.vim"
 call vundle#end()            " required
 
 
+colorscheme candyman
 
 " Mappings
 " map the leader button
@@ -82,10 +85,6 @@ let mapleader = ","
 let g:calendar_google_calendar = 1
 let g:calendar_google_task = 1
 
-
-" ignoriert Buchstaben j und k bei OMNIpopup
-" inoremap <expr> j ((pumvisible())?("\<C-n>"):("j"))
-" inoremap <expr> k ((pumvisible())?("\<C-p>"):("k"))
 "
 " ctrlp working path disable
 let g:ctrlp_working_path_mode = 0
@@ -103,12 +102,10 @@ noremap   <Down>   <NOP>
 noremap   <Left>   <NOP>
 noremap   <Right>  <NOP>
 
-" verknüpft ESC mit speichern :w
-" inoremap <Esc> <Esc>:w<CR>
-"
+" CTRL + L hides highlighting
 nnoremap <silent> <C-l> :nohl<CR><C-l>
 
-" F9 toggle folding
+" F3 toggle folding
 inoremap <f3> <C-O>za
 nnoremap <f3> za
 onoremap <f3> <C-C>za
@@ -139,18 +136,18 @@ nnoremap <leader>m :Mru<cr>
 
 " Calendar with leader + c
 nnoremap <leader>c :Calendar<cr>
+
 au FileType pandoc map  <F5>  :w<CR>:PandocHtml<CR><ESC>
 au FileType pandoc imap <F5>  <esc><F5>a
 au FileType pandoc map  <F6>  :w<CR>:PandocPdf<CR><ESC>
 au FileType pandoc imap <F6>  <esc><F6>a
 
 " write / close / write and close with capital letters and non capital letters
-command WQ wq
-command Wq wq
-command W w
-command Q q
+command! WQ wq
+command! Wq wq
+command! W w
+command! Q q
 
-" Some specific configurations
 " Lines added by the Vim-R-plugin command :RpluginConfig (2014-Mai-13 21:39):
 syntax enable
 
@@ -187,7 +184,7 @@ nmap         ++  vip++
 " This rewires n and N to do the highlighing...
 nnoremap <silent> n   n:call HLNext(0.4)<cr>
 nnoremap <silent> N   N:call HLNext(0.4)<cr>
-colorscheme candyman
+
 
 " EITHER blink the line containing the match...
 function! HLNext (blinktime)
@@ -197,6 +194,22 @@ function! HLNext (blinktime)
     set invcursorline
     redraw
 endfunction
+
+
+" Tim Pope's Tabularize Addon
+inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
+ 
+function! s:align()
+    let p = '^\s*|\s.*\s|\s*$'
+    if exists(':Tabularize') && getline('.') =~# '^\s*|' && (getline(line('.')-1) =~# p || getline(line('.')+1) =~# p)
+        let column = strlen(substitute(getline('.')[0:col('.')],'[^|]','','g'))
+        let position = strlen(matchstr(getline('.')[0:col('.')],'.*|\s*\zs.*'))
+        Tabularize/|/l1
+        normal! 0
+        call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
+    endif
+endfunction
+
 set list
 set listchars=tab:▸\ ,eol:¬
 "

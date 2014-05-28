@@ -32,9 +32,9 @@ own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
 own_window_transparent yes
 
 
-alignment top_middle # alternativ auch: tm
-gap_y 30 #abstand auf der y achse
-gap_x -160 #abstand x achse
+alignment bottom_right # alternativ auch: tm
+gap_y -25 #abstand auf der y achse
+gap_x 20 #abstand x achse
 border_inner_margin 0
 
 minimum_size 300 500

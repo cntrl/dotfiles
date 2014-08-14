@@ -1,12 +1,19 @@
 " Setup
-set guifont=Bitstream_Vera_Sans_Mono:h11:cANSI
+" set guifont=Bitstream_Vera_Sans_Mono:h11:cANSI
 set nocompatible
 set mouse=a
+" force vim to use 256 colors
+if $TERM == "xterm-256color"
+    set t_Co=256
+endif
+
+set background=dark
 set number
 set incsearch
 set hlsearch
 set nosol
-set foldmethod=marker
+set foldmethod=manual
+set nofoldenable
 set laststatus=2
 set noshowmode
 "filetype indent on
@@ -20,7 +27,7 @@ set autochdir
 
 
 filetype plugin indent on
-cd /media/Datenablage/Dropbox/Dokumente/
+cd /media/datenablage/Dropbox/Dokumente/
 
 " highlights 81st character in each row
 " highlight ColorColumn ctermbg=magenta
@@ -44,7 +51,7 @@ Bundle "bling/vim-airline"
 Bundle "yegappan/mru"
 Bundle "vim-scripts/Tabmerge"
 "Bundle "vim-scripts/AutoComplPop"
-"Bundle "jcfaria/Vim-R-plugin"
+Bundle "jcfaria/Vim-R-plugin"
 "Bundle "smancill/conky-syntax.vim"
 Bundle "jcf/vim-latex"
 Bundle "Lokaltog/vim-easymotion"
@@ -60,17 +67,18 @@ Bundle "bling/vim-bufferline"
 Bundle "mileszs/ack.vim"
 Bundle "xolox/vim-notes"
 Bundle "xolox/vim-misc"
-"Bundle "vim-pandoc/vim-pandoc"
-"Bundle "vim-pandoc/vim-pantondoc"
-"Bundle "vim-pandoc/vim-pandoc-syntax"
+Bundle "vim-pandoc/vim-pandoc"
+Bundle "vim-pandoc/vim-pantondoc"
+" Bundle "vim-pandoc/vim-pandoc-syntax"
 "Bundle "tpope/vim-commentary"
 Bundle "godlygeek/tabular"
-Bundle "itchyny/calendar.vim"
+" Bundle "itchyny/calendar.vim"
 "Bundle "tpope/vim-surround"
 Bundle "danchoi/vmail"
-"Bundle "plasticboy/vim-markdown"
+" Bundle "plasticboy/vim-markdown"
 Bundle "tpope/vim-fugitive"
 Bundle "Shougo/neocomplete.vim"
+Bundle "ervandew/screen"
 
 
 "All of your Plugins must be added before the following line
@@ -82,8 +90,8 @@ colorscheme candyman
 " Mappings
 " map the leader button
 let mapleader = ","
-let g:calendar_google_calendar = 1
-let g:calendar_google_task = 1
+" let g:calendar_google_calendar = 1
+" let g:calendar_google_task = 1
 
 "
 " ctrlp working path disable
@@ -93,14 +101,14 @@ let g:ctrlp_working_path_mode = 0
 let g:pandoc_no_empty_implicits = 1
 
 " löst Verknüpfung der Pfeiltasten
-inoremap  <Up>     <NOP>
-inoremap  <Down>   <NOP>
-inoremap  <Left>   <NOP>
-inoremap  <Right>  <NOP>
-noremap   <Up>     <NOP>
-noremap   <Down>   <NOP>
-noremap   <Left>   <NOP>
-noremap   <Right>  <NOP>
+" inoremap  <Up>     <NOP>
+" inoremap  <Down>   <NOP>
+" inoremap  <Left>   <NOP>
+" inoremap  <Right>  <NOP>
+" noremap   <Up>     <NOP>
+" noremap   <Down>   <NOP>
+" noremap   <Left>   <NOP>
+" noremap   <Right>  <NOP>
 
 " CTRL + L hides highlighting
 nnoremap <silent> <C-l> :nohl<CR><C-l>
@@ -112,16 +120,16 @@ onoremap <f3> <C-C>za
 vnoremap <f3> zf
 
 " FuzzyFinder mappings
-nnoremap <leader>fn :FufFile /media/Datenablage/Dropbox/Dokumente/Notes/<cr>
-nnoremap <leader>fd :FufFile /media/Datenablage/Dropbox/Dokumente/<cr>
+nnoremap <leader>fn :FufFile /media/datenablage/Dropbox/Dokumente/Notes/<cr>
+nnoremap <leader>fd :FufFile /media/datenablage/Dropbox/Dokumente/<cr>
 
 " open vimrc
 nnoremap <leader>v :e ~/.vimrc<CR>
 nnoremap <leader>V :tabnew ~/.vimrc<CR>
 
 " ACK Mappings
-command! -nargs=1 ANo Ack -i "<args>" /media/Datenablage/Dropbox/Dokumente/Notes/
-command! -nargs=1 ANd Ack -i "<args>" /media/Datenablage/Dropbox/Dokumente/
+command! -nargs=1 ANo Ack -i "<args>" /media/datenablage/Dropbox/Dokumente/Notes/
+command! -nargs=1 ANd Ack -i "<args>" /media/datenablage/Dropbox/Dokumente/
 nnoremap <leader>an :ANo 
 nnoremap <leader>ad :ANd 
 
@@ -136,6 +144,12 @@ nnoremap <leader>m :Mru<cr>
 
 " Calendar with leader + c
 nnoremap <leader>c :Calendar<cr>
+
+" leader + p konvertiert file in pdf um via pandoc
+nnoremap <leader>p :!pandoc % -o %.pdf<cr>
+
+" leader + z öffnet file in zathura 
+nnoremap <leader>z :!zathura %.pdf<cr><cr>
 
 au FileType pandoc map  <F5>  :w<CR>:PandocHtml<CR><ESC>
 au FileType pandoc imap <F5>  <esc><F5>a
@@ -155,7 +169,7 @@ syntax enable
 let maplocalleader = ","
 
 " Notes-Verzeichnis
-let g:notes_directories = ['/media/Datenablage/Dropbox/Dokumente/Notes/']
+let g:notes_directories = ['/media/datenablage/Dropbox/Dokumente/Notes/']
 
 " Opens NERDTREE with Bookmarks
 let NERDTreeShowBookmarks=1
@@ -172,10 +186,6 @@ imap jj <Esc>
 vmap <Space> <Plug>RDSendSelection
 nmap <Space> <Plug>RDSendLine
 
-" Force Vim to use 256 colors if running in a capable terminal emulator:
-if &term =~ "xterm" || &term =~ "256" || $DISPLAY != "" || $HAS_256_COLORS == "yes"
-    set t_Co=256
-endif
 
 " vim-vmath key maps
 vmap <expr>  ++  VMATH_YankAndAnalyse()
@@ -298,3 +308,68 @@ endif
 " https://github.com/c9s/perlomni.vim
 let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 " }}}
+
+
+" sample settings for vim-r-plugin and screen.vim
+" Installation 
+"       - Place plugin file under ~/.vim/
+"       - To activate help, type in vim :helptags ~/.vim/doc
+"       - Place the following vim conf lines in .vimrc
+" Usage
+"       - Read intro/help in vim with :h vim-r-plugin or :h screen.txt
+"       - To initialize vim/R session, start screen/tmux, open some *.R file
+" in vim and then hit F2 key
+"       - Object/omni completion command CTRL-X CTRL-O
+"       - To update object list for omni completion, run :RUpdateObjList
+" My favorite Vim/R window arrangement 
+" tmux attach
+" Open *.R file in Vim and hit F2 to open R
+" Go to R pane and create another pane with C-a %
+" Open second R session in new pane
+" Go to vim pane and open a new viewport with :split *.R
+" Useful tmux commands
+"       tmux new -s <myname>       start new session with a specific name
+" tmux ls (C-a-s)            list tmux session
+"       tmux attach -t <id>        attach to specific session  
+"       tmux kill-session -t <id>  kill specific session
+"     C-a-: kill-session         kill a session
+"     C-a %                      split pane vertically
+"       C-a "                      split pane horizontally
+"     C-a-o                      jump cursor to next pane
+" C-a C-o                    swap panes
+"     C-a-: resize-pane -L 10    resizes pane by 10 to left (L R U D)
+" Corresponding Vim commands
+"     :split or :vsplit      split viewport
+"     C-w-w                  jump cursor to next pane-
+"     C-w-r                  swap viewports
+"     C-w C-++               resize viewports to equal split
+"     C-w 10+                increase size of current pane by value
+
+" To open R in terminal rather than RGui (only necessary on OS X)
+" let vimrplugin_applescript = 0
+" let vimrplugin_screenplugin = 0
+" For tmux support
+let g:ScreenImpl = 'Tmux'
+let vimrplugin_screenvsplit = 1 " For vertical tmux split
+let g:ScreenShellInitialFocus = 'shell' 
+" instruct to use your own .screenrc file
+let g:vimrplugin_noscreenrc = 1
+" For integration of r-plugin with screen.vim
+let g:vimrplugin_screenplugin = 1
+" Don't use conque shell if installed
+let vimrplugin_conqueplugin = 0
+" map the letter 'r' to send visually selected lines to R 
+let g:vimrplugin_map_r = 1
+" see R documentation in a Vim buffer
+let vimrplugin_vimpager = "no"
+"set expandtab
+set shiftwidth=4
+set tabstop=8
+" start R with F2 key
+map <F2> <Plug>RStart 
+imap <F2> <Plug>RStart
+vmap <F2> <Plug>RStart
+" send selection to R with space bar
+vmap <Space> <Plug>RDSendSelection 
+" send line to R with space bar
+nmap <Space> <Plug>RDSendLine

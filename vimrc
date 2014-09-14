@@ -1,5 +1,4 @@
 " Setup
-" set guifont=Bitstream_Vera_Sans_Mono:h11:cANSI
 set nocompatible
 set mouse=a
 " force vim to use 256 colors
@@ -19,7 +18,6 @@ set foldmethod=manual
 set nofoldenable
 set laststatus=2
 set noshowmode
-"filetype indent on
 set tabstop=4
 set shiftwidth=4
 set expandtab
@@ -31,10 +29,6 @@ set autochdir
 
 filetype plugin indent on
 cd /media/datenablage/Dropbox/Dokumente/
-
-" highlights 81st character in each row
-" highlight ColorColumn ctermbg=magenta
-" call matchadd('ColorColumn', '\%81v', 100)
 
 
 " Bundles
@@ -89,19 +83,11 @@ Bundle "klen/python-mode"
 "All of your Plugins must be added before the following line
 call vundle#end()            " required
 
-
 colorscheme candyman
 
 " Mappings
-" map the leader button
 let mapleader = ","
-" let g:calendar_google_calendar = 1
-" let g:calendar_google_task = 1
-
 "
-" ctrlp working path disable
-let g:ctrlp_working_path_mode = 0
-
 " pandoc syntax highlighting on
 let g:pandoc_no_empty_implicits = 1
 
@@ -111,16 +97,6 @@ augroup vimrc_autocmd
     autocmd FileType python match Excess /\%80v.*/
     autocmd FileType python set wrap
 augroup END
-
-" löst Verknüpfung der Pfeiltasten
-" inoremap  <Up>     <NOP>
-" inoremap  <Down>   <NOP>
-" inoremap  <Left>   <NOP>
-" inoremap  <Right>  <NOP>
-" noremap   <Up>     <NOP>
-" noremap   <Down>   <NOP>
-" noremap   <Left>   <NOP>
-" noremap   <Right>  <NOP>
 
 " CTRL + L hides highlighting
 nnoremap <silent> <C-l> :nohl<CR><C-l>
@@ -153,9 +129,6 @@ nnoremap <leader>n :Note<cr>
 
 " MostRecentlyUsed with leader + m
 nnoremap <leader>m :Mru<cr>
-
-" Calendar with leader + c
-" nnoremap <leader>c :Calendar<cr>
 
 " leader + p konvertiert file in pdf um via pandoc
 nnoremap <leader>p :!pandoc % -o %.pdf<cr>
@@ -194,11 +167,6 @@ else
 endif
 imap jj <Esc>
 
-" Press the space bar to send lines (in Normal mode) and selections to R:
-vmap <Space> <Plug>RDSendSelection
-nmap <Space> <Plug>RDSendLine
-
-
 " vim-vmath key maps
 vmap <expr>  ++  VMATH_YankAndAnalyse()
 nmap         ++  vip++
@@ -216,7 +184,6 @@ function! HLNext (blinktime)
     set invcursorline
     redraw
 endfunction
-
 
 " Tim Pope's Tabularize Addon
 inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
@@ -279,27 +246,6 @@ inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><C-y>  neocomplete#close_popup()
 inoremap <expr><C-e>  neocomplete#cancel_popup()
-" Close popup by <Space>.
-" inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
-
-" For cursor moving in insert mode(Not recommended)
-" inoremap <expr><Left>  neocomplete#close_popup() . "\<Left>"
-" inoremap <expr><Right> neocomplete#close_popup() . "\<Right>"
-" inoremap <expr><Up>    neocomplete#close_popup() . "\<Up>"
-" inoremap <expr><Down>  neocomplete#close_popup() . "\<Down>"
-" Or set this.
-" let g:neocomplete#enable_cursor_hold_i = 1
-" Or set this.
-" let g:neocomplete#enable_insert_char_pre = 1
-
-" AutoComplPop like behavior.
-" let g:neocomplete#enable_auto_select = 1
-
-" Shell like behavior(not recommended).
-" set completeopt+=longest
-" let g:neocomplete#enable_auto_select = 1
-" let g:neocomplete#disable_auto_complete = 1
-" inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
 
 " Enable omni completion.
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
@@ -312,29 +258,7 @@ autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 if !exists('g:neocomplete#sources#omni#input_patterns')
     let g:neocomplete#sources#omni#input_patterns = {}
 endif
-" let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-" let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-" let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 
-" For perlomni.vim setting.
-" https://github.com/c9s/perlomni.vim
-let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-" }}}
-
-
-let g:ScreenImpl = 'Tmux'
-let vimrplugin_screenvsplit = 1 " For vertical tmux split
-let g:ScreenShellInitialFocus = 'shell' 
-" instruct to use your own .screenrc file
-let g:vimrplugin_noscreenrc = 1
-" For integration of r-plugin with screen.vim
-let g:vimrplugin_screenplugin = 1
-" Don't use conque shell if installed
-let vimrplugin_conqueplugin = 0
-" map the letter 'r' to send visually selected lines to R 
-let g:vimrplugin_map_r = 1
-" see R documentation in a Vim buffer
-let vimrplugin_vimpager = "no"
 "set expandtab
 set shiftwidth=4
 set tabstop=8

@@ -6,6 +6,9 @@ set mouse=a
 if $TERM == "xterm-256color"
     set t_Co=256
 endif
+" powerline
+set rtp+=$HOME/.local/lib/python2.7/site-packages/powerline/bindings/vim/
+
 
 set background=dark
 set number
@@ -44,19 +47,20 @@ Bundle "vim-scripts/FuzzyFinder"
 Bundle "vim-scripts/L9"
 "Bundle "szw/vim-ctrlspace"
 "Bundle "tpope/vim-vinegar"
-Bundle "kien/ctrlp.vim"
+" Bundle "kien/ctrlp.vim"
 Bundle "scrooloose/nerdtree"
 Bundle "flazz/vim-colorschemes"
-Bundle "bling/vim-airline"
+" Bundle "bling/vim-airline"
+Bundle "Lokaltog/powerline"
 Bundle "yegappan/mru"
-Bundle "vim-scripts/Tabmerge"
+" Bundle "vim-scripts/Tabmerge"
 "Bundle "vim-scripts/AutoComplPop"
-Bundle "jcfaria/Vim-R-plugin"
+" Bundle "jcfaria/Vim-R-plugin"
 "Bundle "smancill/conky-syntax.vim"
 Bundle "jcf/vim-latex"
 Bundle "Lokaltog/vim-easymotion"
 "Bundle "nixon/vim-vmath"
-Bundle "mattn/emmet-vim"
+" Bundle "mattn/emmet-vim"
 "Bundle "vim-scripts/loremipsum"
 Bundle "scrooloose/syntastic"
 Bundle "vim-scripts/tComment"
@@ -74,11 +78,12 @@ Bundle "vim-pandoc/vim-pantondoc"
 Bundle "godlygeek/tabular"
 " Bundle "itchyny/calendar.vim"
 "Bundle "tpope/vim-surround"
-Bundle "danchoi/vmail"
+" Bundle "danchoi/vmail"
 " Bundle "plasticboy/vim-markdown"
 Bundle "tpope/vim-fugitive"
 Bundle "Shougo/neocomplete.vim"
 Bundle "ervandew/screen"
+Bundle "klen/python-mode"
 
 
 "All of your Plugins must be added before the following line
@@ -99,6 +104,13 @@ let g:ctrlp_working_path_mode = 0
 
 " pandoc syntax highlighting on
 let g:pandoc_no_empty_implicits = 1
+
+" python-mode settings
+augroup vimrc_autocmd
+    autocmd!
+    autocmd FileType python match Excess /\%80v.*/
+    autocmd FileType python set wrap
+augroup END
 
 " löst Verknüpfung der Pfeiltasten
 " inoremap  <Up>     <NOP>
@@ -143,7 +155,7 @@ nnoremap <leader>n :Note<cr>
 nnoremap <leader>m :Mru<cr>
 
 " Calendar with leader + c
-nnoremap <leader>c :Calendar<cr>
+" nnoremap <leader>c :Calendar<cr>
 
 " leader + p konvertiert file in pdf um via pandoc
 nnoremap <leader>p :!pandoc % -o %.pdf<cr>
@@ -310,45 +322,6 @@ let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 " }}}
 
 
-" sample settings for vim-r-plugin and screen.vim
-" Installation 
-"       - Place plugin file under ~/.vim/
-"       - To activate help, type in vim :helptags ~/.vim/doc
-"       - Place the following vim conf lines in .vimrc
-" Usage
-"       - Read intro/help in vim with :h vim-r-plugin or :h screen.txt
-"       - To initialize vim/R session, start screen/tmux, open some *.R file
-" in vim and then hit F2 key
-"       - Object/omni completion command CTRL-X CTRL-O
-"       - To update object list for omni completion, run :RUpdateObjList
-" My favorite Vim/R window arrangement 
-" tmux attach
-" Open *.R file in Vim and hit F2 to open R
-" Go to R pane and create another pane with C-a %
-" Open second R session in new pane
-" Go to vim pane and open a new viewport with :split *.R
-" Useful tmux commands
-"       tmux new -s <myname>       start new session with a specific name
-" tmux ls (C-a-s)            list tmux session
-"       tmux attach -t <id>        attach to specific session  
-"       tmux kill-session -t <id>  kill specific session
-"     C-a-: kill-session         kill a session
-"     C-a %                      split pane vertically
-"       C-a "                      split pane horizontally
-"     C-a-o                      jump cursor to next pane
-" C-a C-o                    swap panes
-"     C-a-: resize-pane -L 10    resizes pane by 10 to left (L R U D)
-" Corresponding Vim commands
-"     :split or :vsplit      split viewport
-"     C-w-w                  jump cursor to next pane-
-"     C-w-r                  swap viewports
-"     C-w C-++               resize viewports to equal split
-"     C-w 10+                increase size of current pane by value
-
-" To open R in terminal rather than RGui (only necessary on OS X)
-" let vimrplugin_applescript = 0
-" let vimrplugin_screenplugin = 0
-" For tmux support
 let g:ScreenImpl = 'Tmux'
 let vimrplugin_screenvsplit = 1 " For vertical tmux split
 let g:ScreenShellInitialFocus = 'shell' 
@@ -369,7 +342,9 @@ set tabstop=8
 map <F2> <Plug>RStart 
 imap <F2> <Plug>RStart
 vmap <F2> <Plug>RStart
-" send selection to R with space bar
-vmap <Space> <Plug>RDSendSelection 
-" send line to R with space bar
-nmap <Space> <Plug>RDSendLine
+
+" vim-latex settings
+" compile to pdf
+let g:Tex_DefaultTargetFormat = 'pdf'
+let g:Tex_MultipleCompileFormats='pdf, aux'
+

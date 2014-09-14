@@ -259,10 +259,6 @@ if !exists('g:neocomplete#sources#omni#input_patterns')
     let g:neocomplete#sources#omni#input_patterns = {}
 endif
 
-"set expandtab
-set shiftwidth=4
-set tabstop=8
-
 " vim-latex settings
 " compile to pdf
 let g:Tex_DefaultTargetFormat = 'pdf'

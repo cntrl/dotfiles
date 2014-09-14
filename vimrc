@@ -338,10 +338,6 @@ let vimrplugin_vimpager = "no"
 "set expandtab
 set shiftwidth=4
 set tabstop=8
-" start R with F2 key
-map <F2> <Plug>RStart 
-imap <F2> <Plug>RStart
-vmap <F2> <Plug>RStart
 
 " vim-latex settings
 " compile to pdf

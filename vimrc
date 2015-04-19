@@ -1,15 +1,19 @@
-" Setup
+"Setup
 set nocompatible
 set mouse=a
-" force vim to use 256 colors
+
+"force vim to use 256 colors
 if $TERM == "xterm-256color"
     set t_Co=256
 endif
-" powerline
+
+"powerline
 set rtp+=$HOME/.local/lib/python2.7/site-packages/powerline/bindings/vim/
 
+" for solarized
+" set background=dark
+set background=light
 
-set background=dark
 set number
 set incsearch
 set hlsearch
@@ -28,33 +32,32 @@ set autochdir
 
 
 filetype plugin indent on
-cd /media/datenablage/Dropbox/Dokumente/
+cd ~/
 
-
-" Bundles
+"Bundles
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 
-
 Bundle "vim-scripts/FuzzyFinder"
 Bundle "vim-scripts/L9"
-"Bundle "szw/vim-ctrlspace"
+Bundle "szw/vim-ctrlspace"
+Bundle "neilagabriel/vim-geeknote"
 "Bundle "tpope/vim-vinegar"
-" Bundle "kien/ctrlp.vim"
+"Bundle "kien/ctrlp.vim"
 Bundle "scrooloose/nerdtree"
 Bundle "flazz/vim-colorschemes"
-" Bundle "bling/vim-airline"
+"Bundle "bling/vim-airline"
 Bundle "Lokaltog/powerline"
 Bundle "yegappan/mru"
-" Bundle "vim-scripts/Tabmerge"
+"Bundle "vim-scripts/Tabmerge"
 "Bundle "vim-scripts/AutoComplPop"
-" Bundle "jcfaria/Vim-R-plugin"
+Bundle "jcfaria/Vim-R-plugin"
 "Bundle "smancill/conky-syntax.vim"
 Bundle "jcf/vim-latex"
 Bundle "Lokaltog/vim-easymotion"
 "Bundle "nixon/vim-vmath"
-" Bundle "mattn/emmet-vim"
+"Bundle "mattn/emmet-vim"
 "Bundle "vim-scripts/loremipsum"
 Bundle "scrooloose/syntastic"
 Bundle "vim-scripts/tComment"
@@ -67,13 +70,13 @@ Bundle "xolox/vim-notes"
 Bundle "xolox/vim-misc"
 Bundle "vim-pandoc/vim-pandoc"
 Bundle "vim-pandoc/vim-pantondoc"
-" Bundle "vim-pandoc/vim-pandoc-syntax"
+"Bundle "vim-pandoc/vim-pandoc-syntax"
 "Bundle "tpope/vim-commentary"
 Bundle "godlygeek/tabular"
-" Bundle "itchyny/calendar.vim"
+"Bundle "itchyny/calendar.vim"
 "Bundle "tpope/vim-surround"
-" Bundle "danchoi/vmail"
-" Bundle "plasticboy/vim-markdown"
+"Bundle "danchoi/vmail"
+"Bundle "plasticboy/vim-markdown"
 Bundle "tpope/vim-fugitive"
 Bundle "Shougo/neocomplete.vim"
 Bundle "ervandew/screen"
@@ -83,7 +86,7 @@ Bundle "klen/python-mode"
 "All of your Plugins must be added before the following line
 call vundle#end()            " required
 
-colorscheme candyman
+colorscheme solarized
 
 " Mappings
 let mapleader = ","
@@ -91,10 +94,11 @@ let mapleader = ","
 " pandoc syntax highlighting on
 let g:pandoc_no_empty_implicits = 1
 
+let g:pymode_python = 'python3'
+
 " python-mode settings
 augroup vimrc_autocmd
     autocmd!
-    autocmd FileType python match Excess /\%80v.*/
     autocmd FileType python set wrap
 augroup END
 
@@ -107,17 +111,21 @@ nnoremap <f3> za
 onoremap <f3> <C-C>za
 vnoremap <f3> zf
 
+
+" Geeknote quick toggle
+noremap <F8> :Geeknote<cr>
+
 " FuzzyFinder mappings
-nnoremap <leader>fn :FufFile /media/datenablage/Dropbox/Dokumente/Notes/<cr>
-nnoremap <leader>fd :FufFile /media/datenablage/Dropbox/Dokumente/<cr>
+nnoremap <leader>fn :FufFile ~/notes/<cr>
+nnoremap <leader>fd :FufFile ~/Dokumente/<cr>
 
 " open vimrc
 nnoremap <leader>v :e ~/.vimrc<CR>
 nnoremap <leader>V :tabnew ~/.vimrc<CR>
 
 " ACK Mappings
-command! -nargs=1 ANo Ack -i "<args>" /media/datenablage/Dropbox/Dokumente/Notes/
-command! -nargs=1 ANd Ack -i "<args>" /media/datenablage/Dropbox/Dokumente/
+command! -nargs=1 ANo Ack -i "<args>" ~/notes/
+command! -nargs=1 ANd Ack -i "<args>" ~/Dokumente/
 nnoremap <leader>an :ANo 
 nnoremap <leader>ad :ANd 
 
@@ -154,7 +162,7 @@ syntax enable
 let maplocalleader = ","
 
 " Notes-Verzeichnis
-let g:notes_directories = ['/media/datenablage/Dropbox/Dokumente/Notes/']
+let g:notes_directories = ['~/notes/']
 
 " Opens NERDTREE with Bookmarks
 let NERDTreeShowBookmarks=1

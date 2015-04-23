@@ -31,7 +31,8 @@ set omnifunc=syntaxcomplete#Complete
 set autochdir
 
 
-filetype plugin indent on
+filetype plugin on
+filetype indent on
 cd ~/
 
 "Bundles
@@ -39,49 +40,52 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 
+" Active
+
 Bundle "vim-scripts/FuzzyFinder"
 Bundle "vim-scripts/L9"
 Bundle "szw/vim-ctrlspace"
-Bundle "neilagabriel/vim-geeknote"
-"Bundle "tpope/vim-vinegar"
-"Bundle "kien/ctrlp.vim"
+Bundle "wakatime/vim-wakatime"
 Bundle "scrooloose/nerdtree"
 Bundle "flazz/vim-colorschemes"
-"Bundle "bling/vim-airline"
 Bundle "Lokaltog/powerline"
 Bundle "yegappan/mru"
-"Bundle "vim-scripts/Tabmerge"
-"Bundle "vim-scripts/AutoComplPop"
 Bundle "jcfaria/Vim-R-plugin"
-"Bundle "smancill/conky-syntax.vim"
 Bundle "jcf/vim-latex"
+" Bundle "gerw/vim-latex-suite"
 Bundle "Lokaltog/vim-easymotion"
-"Bundle "nixon/vim-vmath"
-"Bundle "mattn/emmet-vim"
-"Bundle "vim-scripts/loremipsum"
 Bundle "scrooloose/syntastic"
 Bundle "vim-scripts/tComment"
-"Bundle "vim-scripts/UltiSnips"
-"Bundle "msanders/snipmate.vim"
 Bundle "tpope/vim-sensible"
-Bundle "bling/vim-bufferline"
 Bundle "mileszs/ack.vim"
-Bundle "xolox/vim-notes"
-Bundle "xolox/vim-misc"
 Bundle "vim-pandoc/vim-pandoc"
 Bundle "vim-pandoc/vim-pantondoc"
-"Bundle "vim-pandoc/vim-pandoc-syntax"
-"Bundle "tpope/vim-commentary"
-Bundle "godlygeek/tabular"
-"Bundle "itchyny/calendar.vim"
-"Bundle "tpope/vim-surround"
-"Bundle "danchoi/vmail"
-"Bundle "plasticboy/vim-markdown"
+Bundle "vim-pandoc/vim-pandoc-syntax"
 Bundle "tpope/vim-fugitive"
 Bundle "Shougo/neocomplete.vim"
 Bundle "ervandew/screen"
 Bundle "klen/python-mode"
-
+"Bundle "neilagabriel/vim-geeknote"
+"Bundle "plasticboy/vim-markdown"
+"Bundle "godlygeek/tabular"
+"Bundle "danchoi/vmail"
+"Bundle "tpope/vim-surround"
+"Bundle "itchyny/calendar.vim"
+"Bundle "xolox/vim-notes"
+"Bundle "xolox/vim-misc"
+"Bundle "bling/vim-bufferline"
+"Bundle "tpope/vim-commentary"
+"Bundle "msanders/snipmate.vim"
+"Bundle "vim-scripts/UltiSnips"
+"Bundle "vim-scripts/loremipsum"
+"Bundle "mattn/emmet-vim"
+"Bundle "nixon/vim-vmath"
+"Bundle "smancill/conky-syntax.vim"
+"Bundle "vim-scripts/AutoComplPop"
+"Bundle "vim-scripts/Tabmerge"
+"Bundle "bling/vim-airline"
+"Bundle "kien/ctrlp.vim"
+"Bundle "tpope/vim-vinegar"
 
 "All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -133,7 +137,8 @@ nnoremap <leader>ad :ANd
 nnoremap <leader>t :NERDTree<cr> 
 
 " Take Quick Note with leader + n
-nnoremap <leader>n :Note<cr>
+" nnoremap <leader>n :Note<cr>
+nnoremap <leader>n :tabnew ~/notes/.md
 
 " MostRecentlyUsed with leader + m
 nnoremap <leader>m :Mru<cr>
@@ -267,8 +272,9 @@ if !exists('g:neocomplete#sources#omni#input_patterns')
     let g:neocomplete#sources#omni#input_patterns = {}
 endif
 
-" vim-latex settings
-" compile to pdf
-let g:Tex_DefaultTargetFormat = 'pdf'
-let g:Tex_MultipleCompileFormats='pdf, aux'
-
+" latex
+augroup latex_macros " {
+    autocmd!
+    autocmd FileType tex :nnoremap <leader>ll :w<CR>:!latexmk -pdf -pvc %<CR>
+    autocmd FileType tex :nnoremap <leader>lv :!zathura %:r.pdf &<CR><CR>
+augroup END " }
